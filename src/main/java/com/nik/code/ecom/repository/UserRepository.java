@@ -1,0 +1,10 @@
+package com.nik.code.ecom.repository;
+
+import com.nik.code.ecom.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByMobile(String mobile);
+}
