@@ -24,9 +24,8 @@ public class Category {
     @Column(name = "image_url")
     private String imageURL;
 
-    @Column(name = "parent_id")
     @ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "id")
+    @JoinColumn(nullable = false, name = "parent_id")
     private Integer parentId;
 
     public Category() {

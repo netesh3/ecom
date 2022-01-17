@@ -5,8 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d663d63-3376-4989-a92d-1dae62ea6311" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/controllers/ProductController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/controllers/WishListController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/model/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/model/WishList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/repository/ProductRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/repository/WishListRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/service/ProductService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/service/WishListService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/config/SwaggerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/product/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/product/ProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/model/Category.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,8 +76,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -211,7 +223,7 @@
       <workItem from="1641816854042" duration="6593000" />
       <workItem from="1641926961999" duration="19944000" />
       <workItem from="1642432857904" duration="57000" />
-      <workItem from="1642432987650" duration="1123000" />
+      <workItem from="1642432987650" duration="6103000" />
     </task>
     <servers />
   </component>
@@ -228,16 +240,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/nik/code/ecom/ECOMApplication.java</url>
-          <line>10</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
