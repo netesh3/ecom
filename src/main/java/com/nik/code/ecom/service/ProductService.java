@@ -7,6 +7,8 @@ import com.nik.code.ecom.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProductService {
 
@@ -23,5 +25,13 @@ public class ProductService {
         product.setQuantity(productDTO.getQuantity());
         product.setCategory(category);
         productRepository.save(product);
+    }
+
+    public Product getProduct(Integer product_id) {
+        Optional<Product> product = productRepository.findById(product_id);
+        if(!product.isPresent()){
+            return null;
+        }
+        return product.get();
     }
 }

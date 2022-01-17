@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 public class Category {
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -25,7 +24,7 @@ public class Category {
     private String imageURL;
 
     @ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "parent_id")
+    @JoinColumn(nullable = true, name = "parent_id")
     private Integer parentId;
 
     public Category() {
@@ -38,8 +37,12 @@ public class Category {
         this.parentId = parentId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

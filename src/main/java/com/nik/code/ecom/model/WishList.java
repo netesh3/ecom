@@ -1,6 +1,7 @@
 package com.nik.code.ecom.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -8,6 +9,7 @@ import java.util.Date;
 public class WishList {
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -15,8 +17,8 @@ public class WishList {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(targetEntity = WishList.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "product_id")
+    @ManyToOne(targetEntity = Product.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @Column(name = "created_date")
