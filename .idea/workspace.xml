@@ -5,17 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d663d63-3376-4989-a92d-1dae62ea6311" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignInDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignInDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignInResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignInResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignUpResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignUpResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignupDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignupDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/config/SwaggerConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,7 +211,7 @@
       <workItem from="1641816854042" duration="6593000" />
       <workItem from="1641926961999" duration="19944000" />
       <workItem from="1642432857904" duration="57000" />
-      <workItem from="1642432987650" duration="834000" />
+      <workItem from="1642432987650" duration="1123000" />
     </task>
     <servers />
   </component>
