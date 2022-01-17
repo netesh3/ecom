@@ -1,15 +1,15 @@
 package com.nik.code.ecom.dto.user;
 
-public class SignUpResponseDto {
+public class SignUpResponseDTO {
     private String status;
     private String message;
     private String name;
     private String token;
 
-    public SignUpResponseDto() {
+    public SignUpResponseDTO() {
     }
 
-    public SignUpResponseDto(String status, String message, String name, String token) {
+    public SignUpResponseDTO(String status, String message, String name, String token) {
         this.status = status;
         this.message = message;
         this.name = name;

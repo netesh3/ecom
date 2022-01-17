@@ -1,6 +1,6 @@
 package com.nik.code.ecom.dto.user;
 
-public class SignInResponseDto {
+public class SignInResponseDTO {
     private String status;
     private String name;
     private String token;
@@ -29,7 +29,7 @@ public class SignInResponseDto {
         this.name = name;
     }
 
-    public SignInResponseDto(String status, String name, String token) {
+    public SignInResponseDTO(String status, String name, String token) {
         this.status = status;
         this.name = name;
         this.token = token;

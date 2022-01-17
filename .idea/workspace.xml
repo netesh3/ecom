@@ -5,59 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d663d63-3376-4989-a92d-1dae62ea6311" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/exceptions/UserException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.2/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.2/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.2/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.3.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.3.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/EcomApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/EcomApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/config/MessageStrings.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/controllers/CategoryController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/controllers/ProductController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/controllers/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/dto/product/ProductDto.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/dto/user/SignUpResponseDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/dto/user/SignUpResponseDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/dto/user/SignupDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/dto/user/SignupDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/exceptions/CustomException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/exceptions/ExceptionControllerAdvice.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/exceptions/ExceptionControllerAdvice.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/model/Address.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/model/Address.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/model/Category.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/model/Product.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/repository/CategoryRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/repository/ProductRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/service/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/service/AuthenticationService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/service/CategoryService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/service/ProductService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/nik/code/ecom/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/EcomApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/ECOMApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/config/MessageStrings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/constant/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/controllers/CategoryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/controllers/ProductController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/product/ProductDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignUpResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignUpResponseDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignupDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/dto/user/SignupDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/exceptions/CustomException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/exceptions/ExceptionControllerAdvice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/exceptions/ExceptionControllerAdvice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/model/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/model/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/model/Category.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/model/Product.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/repository/CategoryRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/repository/ProductRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/service/AuthenticationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/service/CategoryService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/service/ProductService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/nik/code/ecom/EcomApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/nik/code/ecom/ECOMApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nik/code/ecom/config/SwaggerConfig.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,6 +64,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -259,7 +209,9 @@
       <workItem from="1641580344244" duration="8614000" />
       <workItem from="1641799574012" duration="3517000" />
       <workItem from="1641816854042" duration="6593000" />
-      <workItem from="1641926961999" duration="16481000" />
+      <workItem from="1641926961999" duration="19944000" />
+      <workItem from="1642432857904" duration="57000" />
+      <workItem from="1642432987650" duration="1123000" />
     </task>
     <servers />
   </component>
