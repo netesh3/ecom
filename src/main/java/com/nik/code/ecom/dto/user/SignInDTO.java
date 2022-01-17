@@ -1,6 +1,6 @@
 package com.nik.code.ecom.dto.user;
 
-public class SignInDto {
+public class SignInDTO {
     private String mobile;
     private String password;
 

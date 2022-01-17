@@ -1,6 +1,6 @@
 package com.nik.code.ecom.dto.user;
 
-public class SignupDto {
+public class SignupDTO {
     private String firstName;
     private String lastName;
     private String email;

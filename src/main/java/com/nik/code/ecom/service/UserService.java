@@ -2,10 +2,10 @@ package com.nik.code.ecom.service;
 
 
 import com.nik.code.ecom.constant.Message;
-import com.nik.code.ecom.dto.user.SignInDto;
-import com.nik.code.ecom.dto.user.SignInResponseDto;
-import com.nik.code.ecom.dto.user.SignUpResponseDto;
-import com.nik.code.ecom.dto.user.SignupDto;
+import com.nik.code.ecom.dto.user.SignInDTO;
+import com.nik.code.ecom.dto.user.SignInResponseDTO;
+import com.nik.code.ecom.dto.user.SignUpResponseDTO;
+import com.nik.code.ecom.dto.user.SignupDTO;
 import com.nik.code.ecom.enums.Status;
 import com.nik.code.ecom.exceptions.AuthenticationFailException;
 import com.nik.code.ecom.exceptions.UserException;
@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -34,7 +33,7 @@ public class UserService {
 
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public SignUpResponseDto signUp(SignupDto signupDto)  throws UserException {
+    public SignUpResponseDTO signUp(SignupDTO signupDto)  throws UserException {
         // Check to see if the current phone address has already been registered.
         if (Objects.nonNull(userRepository.findByMobile(signupDto.getMobile()))) {
             // If the phone address has been registered then throw an exception.
@@ -58,7 +57,7 @@ public class UserService {
             // save token in database
             authenticationService.saveConfirmationToken(authenticationToken);
             // success in creating
-            return new SignUpResponseDto(Status.SUCCESS.name(), "user created successfully", signupDto.getFirstName(), authenticationToken.getToken());
+            return new SignUpResponseDTO(Status.SUCCESS.name(), "user created successfully", signupDto.getFirstName(), authenticationToken.getToken());
         } catch (Exception e) {
             // handle signup error
             throw new UserException(e.getMessage());
@@ -74,7 +73,7 @@ public class UserService {
         return myHash;
     }
 
-    public SignInResponseDto signIn(SignInDto signInDto) throws AuthenticationFailException, UserException {
+    public SignInResponseDTO signIn(SignInDTO signInDto) throws AuthenticationFailException, UserException {
         // first find User by email
         User user = userRepository.findByMobile(signInDto.getMobile());
         if(!Objects.nonNull(user)){
@@ -99,6 +98,6 @@ public class UserService {
             throw new UserException(Message.AUTH_TOKEN_NOT_PRESENT);
         }
 
-        return new SignInResponseDto (Status.SUCCESS.name(), user.getFirstName(), token.getToken());
+        return new SignInResponseDTO(Status.SUCCESS.name(), user.getFirstName(), token.getToken());
     }
 }
