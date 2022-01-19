@@ -2,8 +2,6 @@ package com.nik.code.ecom.dto.category;
 
 public class CategoryDTO {
 
-    private Integer id;
-
     private String name;
 
     private String description;
@@ -13,17 +11,6 @@ public class CategoryDTO {
     private Integer parentId;
 
     public CategoryDTO() {
-    }
-
-    public CategoryDTO(String name, String description, String imageURL, Integer parentId) {
-        this.name = name;
-        this.description = description;
-        this.imageURL = imageURL;
-        this.parentId = parentId;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getName() {
@@ -56,16 +43,5 @@ public class CategoryDTO {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "Id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", imageURL='" + imageURL + '\'' +
-                ", parentId='" + parentId + '\'' +
-                '}';
     }
 }

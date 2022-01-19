@@ -27,12 +27,10 @@ public class AuthenticationToken {
     @Column(name = "created_date")
     private Date createdDate;
 
-    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "user_id")
-    private User user;
+    @OneToOne(mappedBy = "token")
+    private UserDetails userDetails;
 
-    public AuthenticationToken(User user) {
-        this.user = user;
+    public AuthenticationToken() {
         this.createdDate = new Date();
         this.token = UUID.randomUUID().toString();
     }
@@ -61,15 +59,11 @@ public class AuthenticationToken {
         this.createdDate = createdDate;
     }
 
-    public User getUser() {
-        return user;
+    public UserDetails getUserDetails() {
+        return userDetails;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-
-    public AuthenticationToken() {
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 }

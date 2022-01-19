@@ -2,9 +2,6 @@ package com.nik.code.ecom.controllers;
 
 import com.nik.code.ecom.common.ApiResponse;
 import com.nik.code.ecom.dto.product.ProductDTO;
-import com.nik.code.ecom.model.Category;
-import com.nik.code.ecom.model.Product;
-import com.nik.code.ecom.repository.CategoryRepository;
 import com.nik.code.ecom.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
 
 @RequestMapping("/product")
 @RestController
@@ -23,16 +19,18 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @Autowired
-    CategoryRepository categoryRepository;
-
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<ApiResponse> createProduct(@RequestBody ProductDTO productDTO){
-        final Optional<Category> category = categoryRepository.findById(productDTO.getCategory_id());
-        if(!category.isPresent()){
+        boolean isCreated = productService.createProduct(productDTO);
+        if(!isCreated){
             return new ResponseEntity<>(new ApiResponse(false, "Category does not exist"), HttpStatus.CREATED);
         }
-        productService.createProduct(productDTO, category.get());
         return new ResponseEntity<>(new ApiResponse(true, "Product is added"), HttpStatus.CREATED);
     }
+
+    //updateProduct
+    //DeleteProduct
+    //bulk list of Product
+    //GetProducts
+    //GetProductById
 }

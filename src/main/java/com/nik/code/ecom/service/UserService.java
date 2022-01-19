@@ -1,6 +1,7 @@
 package com.nik.code.ecom.service;
 
 
+import com.nik.code.ecom.builder.*;
 import com.nik.code.ecom.constant.Message;
 import com.nik.code.ecom.dto.user.SignInDTO;
 import com.nik.code.ecom.dto.user.SignInResponseDTO;
@@ -11,6 +12,7 @@ import com.nik.code.ecom.exceptions.AuthenticationFailException;
 import com.nik.code.ecom.exceptions.UserException;
 import com.nik.code.ecom.model.AuthenticationToken;
 import com.nik.code.ecom.model.User;
+import com.nik.code.ecom.model.UserDetails;
 import com.nik.code.ecom.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,23 +42,29 @@ public class UserService {
             throw new UserException("User already exists");
         }
         // first encrypt the password
-        String encryptedPassword = signupDto.getPassword();
+
         try {
-            encryptedPassword = hashPassword(signupDto.getPassword());
+            String encryptedPassword = hashPassword(signupDto.getPassword());
+            signupDto.setPassword(encryptedPassword);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             logger.error("hashing password failed {}", e.getMessage());
         }
 
-        User user = new User(signupDto.getFirstName(), signupDto.getLastName(), signupDto.getEmail(), signupDto.getMobile(), encryptedPassword );
         try {
+
+            // generate token for user
+            final AuthenticationToken authenticationToken = new AuthenticationToken();
+
+            UserDetails userDetails = new UserDetailsBuilder(authenticationToken)
+                    .withAddress(new AddressBuilder().build())
+                    .build();
+
+            User user = new SignupBuilder(signupDto, userDetails).build();
+
             // save the User
             userRepository.save(user);
-            // generate token for user
-            final AuthenticationToken authenticationToken = new AuthenticationToken(user);
-            // save token in database
-            authenticationService.saveConfirmationToken(authenticationToken);
-            // success in creating
+
             return new SignUpResponseDTO(Status.SUCCESS.name(), "user created successfully", signupDto.getFirstName(), authenticationToken.getToken());
         } catch (Exception e) {
             // handle signup error

@@ -18,13 +18,16 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/signup")
-    public SignUpResponseDTO Signup(@RequestBody SignupDTO signupDto) throws UserException {
+    public SignUpResponseDTO signUp(@RequestBody SignupDTO signupDto) throws UserException {
         return userService.signUp(signupDto);
     }
 
     @PostMapping("/signIn")
-    public SignInResponseDTO Signup(@RequestBody SignInDTO signInDto) throws UserException, AuthenticationFailException {
+    public SignInResponseDTO signIn(@RequestBody SignInDTO signInDto) throws UserException, AuthenticationFailException {
         return userService.signIn(signInDto);
     }
+
+    //addAddress
+    //updateAddress
 
 }

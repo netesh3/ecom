@@ -3,6 +3,7 @@ package com.nik.code.ecom.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
@@ -17,32 +18,36 @@ public class Category {
     @Column(name = "name")
     private String name;
 
+    @NotNull
+    @NotBlank
     @Column(name = "description")
     private String description;
 
     @Column(name = "image_url")
     private String imageURL;
 
-    @ManyToOne(targetEntity = Category.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = true, name = "parent_id")
-    private Integer parentId;
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Category parent;
+
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Category> subCategories;
+
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Product> products;
 
     public Category() {
     }
 
-    public Category(String name, String description, String imageURL, Integer parentId) {
+    public Category(String name, String description, String imageURL, Category parent) {
         this.name = name;
         this.description = description;
         this.imageURL = imageURL;
-        this.parentId = parentId;
+        this.parent = parent;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -69,22 +74,35 @@ public class Category {
         this.imageURL = imageURL;
     }
 
-    public Integer getParentId() {
-        return parentId;
+    public Category getParent() {
+        return parent;
     }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
+    public void setParent(Category parent) {
+        this.parent = parent;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "Id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", imageURL='" + imageURL + '\'' +
-                ", parentId='" + parentId + '\'' +
-                '}';
+    public List<Category> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(List<Category> subCategories) {
+        this.subCategories = subCategories;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public void addSubCategory(Category category){
+        this.subCategories.add(category);
+    }
+
+    public void addProduct(Product product){
+        this.products.add(product);
     }
 }

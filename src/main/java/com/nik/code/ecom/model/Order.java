@@ -2,12 +2,10 @@ package com.nik.code.ecom.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "user_wishlist_products")
-public class WishList {
-
+@Table(name = "user_ordered_products")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -24,10 +22,10 @@ public class WishList {
 
     private Date lastUpdatedDate;
 
-    public WishList() {
+    public Order() {
     }
 
-    public WishList(Product product, UserDetails userDetails, Integer quantity, Date lastUpdatedDate) {
+    public Order(Product product, UserDetails userDetails, Integer quantity, Date lastUpdatedDate) {
         this.product = product;
         this.userDetails = userDetails;
         this.quantity = quantity;

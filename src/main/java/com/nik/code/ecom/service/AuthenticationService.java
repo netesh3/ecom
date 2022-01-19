@@ -5,6 +5,7 @@ import com.nik.code.ecom.constant.Message;
 import com.nik.code.ecom.exceptions.AuthenticationFailException;
 import com.nik.code.ecom.model.AuthenticationToken;
 import com.nik.code.ecom.model.User;
+import com.nik.code.ecom.model.UserDetails;
 import com.nik.code.ecom.repository.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,15 +25,26 @@ public class AuthenticationService {
 
     // get token of the User
     public AuthenticationToken getToken(User user) {
-        return repository.findTokenByUser(user);
+        return user.getUserDetails().getToken();
     }
 
     // get User from the token
     public User getUser(String token) {
         AuthenticationToken authenticationToken = repository.findTokenByToken(token);
         if (Objects.nonNull(authenticationToken)) {
-            if (Objects.nonNull(authenticationToken.getUser())) {
-                return authenticationToken.getUser();
+            if (Objects.nonNull(authenticationToken.getUserDetails())) {
+                return authenticationToken.getUserDetails().getUser();
+            }
+        }
+        return null;
+    }
+
+    // get User Details from the token
+    public UserDetails getUserDetails(String token) {
+        AuthenticationToken authenticationToken = repository.findTokenByToken(token);
+        if (Objects.nonNull(authenticationToken)) {
+            if (Objects.nonNull(authenticationToken.getUserDetails())) {
+                return authenticationToken.getUserDetails();
             }
         }
         return null;

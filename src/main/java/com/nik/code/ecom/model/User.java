@@ -1,6 +1,10 @@
 package com.nik.code.ecom.model;
 
+import com.nik.code.ecom.dto.user.SignupDTO;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -9,41 +13,49 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
+    @NotBlank
     @Column(name = "first_name")
     private String firstName;
 
+    @NotNull
+    @NotBlank
     @Column(name = "last_name")
     private String lastName;
 
+    @NotNull
+    @NotBlank
     @Column(name = "email")
     private String email;
 
+    @NotNull
+    @NotBlank
     @Column(name = "mobile")
     private String mobile;
 
+    @NotNull
+    @NotBlank
     @Column(name = "password")
     private String password;
 
-    @Column(name= "address_id")
-    private Integer address_id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_details")
+    private UserDetails userDetails;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String mobile, String password) {
+    public User(String firstName, String lastName, String email, String mobile, String password, UserDetails userDetails) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.mobile = mobile;
         this.password = password;
+        this.userDetails = userDetails;
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -86,11 +98,12 @@ public class User {
         this.password = password;
     }
 
-    public Integer getAddress_id() {
-        return address_id;
+    public UserDetails getUserDetails() {
+        return userDetails;
     }
 
-    public void setAddress_id(Integer address_id) {
-        this.address_id = address_id;
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
+
 }

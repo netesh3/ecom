@@ -9,14 +9,11 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "first_name")
-    private String first_name;
+    @Column(name = "house")
+    private String house;
 
-    @Column(name = "last_name")
-    private String last_name;
-
-    @Column(name = "address_1")
-    private String address_1;
+    @Column(name = "street")
+    private String street;
 
     @Column(name = "city")
     private String city;
@@ -24,48 +21,45 @@ public class Address {
     @Column(name = "state")
     private String state;
 
-    @Column(name = "postcode")
-    private String postcode;
+    @Column(name = "postal_code")
+    private String postalCode;
 
     @Column(name = "country")
     private String country;
 
-    @Column(name = "user_id")
-    private Integer user_id;
+    @OneToOne(mappedBy = "address", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    private UserDetails userDetails;
 
     public Address() {
+    }
+
+    public Address(String house, String street, String city, String state, String postalCode, String country) {
+        this.house = house;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.postalCode = postalCode;
+        this.country = country;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getHouse() {
+        return house;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public void setHouse(String house) {
+        this.house = house;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public String getStreet() {
+        return street;
     }
 
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
-
-    public String getAddress_1() {
-        return address_1;
-    }
-
-    public void setAddress_1(String address_1) {
-        this.address_1 = address_1;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getCity() {
@@ -84,12 +78,12 @@ public class Address {
         this.state = state;
     }
 
-    public String getPostcode() {
-        return postcode;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
+    public void setPostalCode(String postcode) {
+        this.postalCode = postalCode;
     }
 
     public String getCountry() {
@@ -100,11 +94,11 @@ public class Address {
         this.country = country;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public UserDetails getUserDetails() {
+        return userDetails;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 }

@@ -1,12 +1,8 @@
 package com.nik.code.ecom.controllers;
 
 import com.nik.code.ecom.common.ApiResponse;
+import com.nik.code.ecom.dto.userProducts.UserProductDTO;
 import com.nik.code.ecom.exceptions.AuthenticationFailException;
-import com.nik.code.ecom.model.Product;
-import com.nik.code.ecom.model.User;
-import com.nik.code.ecom.model.WishList;
-import com.nik.code.ecom.service.AuthenticationService;
-import com.nik.code.ecom.service.ProductService;
 import com.nik.code.ecom.service.WishListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,20 +16,14 @@ public class WishListController {
     @Autowired
     WishListService wishListService;
 
-    @Autowired
-    ProductService productService;
-
-    @Autowired
-    AuthenticationService authenticationService;
-
-    @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addToWishList(@RequestBody Integer product_id, @RequestParam("token") String token) throws AuthenticationFailException {
-        authenticationService.authenticate(token);
-        User user = authenticationService.getUser(token);
-        Product product = productService.getProduct(product_id);
-        WishList wishList = new WishList(user, product);
-        wishListService.createWishList(wishList);
-        ApiResponse apiResponse = new ApiResponse(true, "Added to WishList");
-        return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
+    @PostMapping
+    public ResponseEntity<ApiResponse> addToWishList(@RequestBody UserProductDTO userProduct) throws AuthenticationFailException {
+        Boolean isAdded = wishListService.addToWishList(userProduct);
+        if(!isAdded){
+            return new ResponseEntity<>(new ApiResponse(false, "Cannot be added"), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(new ApiResponse(true, "Products added to wishlist"), HttpStatus.CREATED);
     }
+
+//    public ResponseEntity<ApiResponse> removeFromWishList(@RequestBody UserProductDTO userProduct) throws AuthenticationFailException {}
 }

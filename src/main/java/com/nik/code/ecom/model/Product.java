@@ -1,6 +1,9 @@
 package com.nik.code.ecom.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -9,28 +12,46 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotNull
+    @NotBlank
     private String name;
 
+    @NotNull
+    @NotBlank
     private String description;
 
-    private String product_url;
+    @NotNull
+    @NotBlank
+    private Double regularPrice;
 
-    private Double regular_price;
+    private Double discountPrice;
 
-    private Double discount_price;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Cart> userCartProducts;
 
-    private Integer quantity;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Cart> userOrderedProducts;
 
-    @ManyToOne
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Cart> userWishlistProducts;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Integer getId() {
-        return id;
+    public Product() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Product(String name, String description, Double regularPrice, Double discountPrice, Category category) {
+        this.name = name;
+        this.description = description;
+        this.regularPrice = regularPrice;
+        this.discountPrice = discountPrice;
+        this.category = category;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {
@@ -49,36 +70,28 @@ public class Product {
         this.description = description;
     }
 
-    public String getProduct_url() {
-        return product_url;
+    public Double getRegularPrice() {
+        return regularPrice;
     }
 
-    public void setProduct_url(String product_url) {
-        this.product_url = product_url;
+    public void setRegularPrice(Double regular_price) {
+        this.regularPrice = regularPrice;
     }
 
-    public Double getRegular_price() {
-        return regular_price;
+    public Double getDiscountPrice() {
+        return discountPrice;
     }
 
-    public void setRegular_price(Double regular_price) {
-        this.regular_price = regular_price;
+    public void setDiscountPrice(Double discount_price) {
+        this.discountPrice = discountPrice;
     }
 
-    public Double getDiscount_price() {
-        return discount_price;
+    public List<Cart> getUserCartProducts() {
+        return userCartProducts;
     }
 
-    public void setDiscount_price(Double discount_price) {
-        this.discount_price = discount_price;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setUserCartProducts(List<Cart> userCartProducts) {
+        this.userCartProducts = userCartProducts;
     }
 
     public Category getCategory() {
@@ -87,5 +100,21 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<Cart> getUserOrderedProducts() {
+        return userOrderedProducts;
+    }
+
+    public void setUserOrderedProducts(List<Cart> userOrderedProducts) {
+        this.userOrderedProducts = userOrderedProducts;
+    }
+
+    public List<Cart> getUserWishlistProducts() {
+        return userWishlistProducts;
+    }
+
+    public void setUserWishlistProducts(List<Cart> userWishlistProducts) {
+        this.userWishlistProducts = userWishlistProducts;
     }
 }
