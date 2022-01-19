@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("search")
@@ -18,7 +17,7 @@ public class SearchController {
     SearchService searchService;
 
     @GetMapping
-    public List<ProductDTO> findProductsByKeywords(@RequestParam String keyword) {
+    public List<ProductDTO> findProductsByKeyword(@RequestParam String keyword) {
         List<ProductDTO> productDTOS = searchService.searchProducts(keyword);
         return productDTOS;
     }
