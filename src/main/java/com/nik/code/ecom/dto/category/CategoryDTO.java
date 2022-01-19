@@ -13,6 +13,13 @@ public class CategoryDTO {
     public CategoryDTO() {
     }
 
+    public CategoryDTO(String name, String description, String imageURL, Integer parentId) {
+        this.name = name;
+        this.description = description;
+        this.imageURL = imageURL;
+        this.parentId = parentId;
+    }
+
     public String getName() {
         return name;
     }

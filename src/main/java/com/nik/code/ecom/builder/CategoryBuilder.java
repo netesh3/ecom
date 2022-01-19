@@ -12,10 +12,10 @@ public class CategoryBuilder {
 
     private Category parent;
 
-    public CategoryBuilder(CategoryDTO category){
-        this.name = category.getName();
-        this.description = category.getDescription();
-        this.imageURL = category.getImageURL();
+    public CategoryBuilder(CategoryDTO categoryDTO){
+        this.name = categoryDTO.getName();
+        this.description = categoryDTO.getDescription();
+        this.imageURL = categoryDTO.getImageURL();
     }
 
     public CategoryBuilder withParentCategory(Category category){
