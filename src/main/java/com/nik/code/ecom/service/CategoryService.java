@@ -5,10 +5,14 @@ import com.nik.code.ecom.dto.category.CategoryDTO;
 import com.nik.code.ecom.mapper.CategoryDTOMapper;
 import com.nik.code.ecom.model.Category;
 import com.nik.code.ecom.repository.CategoryRepository;
-import com.nik.code.ecom.utils.DTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -20,35 +24,47 @@ public class CategoryService {
     CategoryRepository categoryRepository;
 
     public void createCategory(CategoryDTO categoryDTO) {
-        Category parent = null;
+        Optional<Category> parent = null;
         if(Objects.nonNull(categoryDTO.getParentId())){
-            parent = categoryRepository.getById(categoryDTO.getParentId());
+            parent = categoryRepository.findById(categoryDTO.getParentId());
         }
-        Category category = new CategoryBuilder(categoryDTO).withParentCategory(parent).build();
+        Category category = new CategoryBuilder(categoryDTO).withParentCategory(parent.get()).build();
         categoryRepository.save(category);
     }
 
     public void updateCategory(CategoryDTO categoryDTO, Integer categoryId) {
-        Category category = categoryRepository.getById(categoryId);
-        Category parentCategory = null;
-        if(Objects.nonNull(categoryDTO.getParentId())){
-            parentCategory = categoryRepository.getById(categoryDTO.getParentId());
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if(category.isPresent()){
+            Optional<Category> parentCategory = null;
+            if(Objects.nonNull(categoryDTO.getParentId())){
+                parentCategory = categoryRepository.findById(categoryDTO.getParentId());
+            }
+            if(category.isPresent()){
+                category.get().setName(categoryDTO.getName());
+                category.get().setDescription(categoryDTO.getDescription());
+                category.get().setImageURL(categoryDTO.getImageURL());
+            }
+            if(parentCategory.isPresent()){
+                category.get().setParent(parentCategory.get());
+            }
+            categoryRepository.save(category.get());
         }
-        category.setName(categoryDTO.getName());
-        category.setDescription(categoryDTO.getDescription());
-        category.setImageURL(categoryDTO.getImageURL());
-        category.setParent(parentCategory);
-        categoryRepository.save(category);
     }
 
     public void deleteCategory(Integer categoryId) {
         categoryRepository.deleteById(categoryId);
     }
 
-    public List<CategoryDTO> getAllCategories() {
-        List<Category> category = categoryRepository.findAll();
-        List<CategoryDTO> categoryDTOS = new CategoryDTOMapper().toDTO(category);
-        return categoryDTOS;
+    public List<CategoryDTO> getAllCategories(Integer pageNo, Integer pageSize, String sortBy) {
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        Page<Category> categoryPagedResult = categoryRepository.findAll(paging);
+        if (categoryPagedResult.hasContent()) {
+            List<Category> categories = categoryPagedResult.getContent();
+            List<CategoryDTO> categoryDTOS = new CategoryDTOMapper().toDTO(categories);
+            return categoryDTOS;
+        } else {
+            return new ArrayList<CategoryDTO>();
+        }
     }
 
     public CategoryDTO getCategoryById(Integer categoryId) {

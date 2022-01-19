@@ -36,10 +36,11 @@ public class CategoryController {
         return new ResponseEntity<>(new ApiResponse(true, "Category is added"), HttpStatus.CREATED);
     }
 
-    //TODO pagination and sorting
     @GetMapping
-    public List<CategoryDTO> getCategories() {
-        List<CategoryDTO> categories = categoryService.getAllCategories();
+    public List<CategoryDTO> getCategories(@RequestParam(defaultValue = "0") Integer pageNo,
+                                           @RequestParam(defaultValue = "10") Integer pageSize,
+                                           @RequestParam(defaultValue = "id") String sortBy) {
+        List<CategoryDTO> categories = categoryService.getAllCategories(pageNo, pageSize, sortBy);
         return categories;
     }
 
