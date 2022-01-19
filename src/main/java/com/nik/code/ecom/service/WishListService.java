@@ -1,5 +1,6 @@
 package com.nik.code.ecom.service;
 
+import com.nik.code.ecom.builder.WishlistBuilder;
 import com.nik.code.ecom.dto.userProducts.UserProductDTO;
 import com.nik.code.ecom.exceptions.AuthenticationFailException;
 import com.nik.code.ecom.model.Product;
@@ -28,11 +29,17 @@ public class WishListService {
     @Autowired
     WishListRepository wishListRepository;
 
-    public Boolean addToWishList(String token, UserProductDTO userProducts) throws AuthenticationFailException {
+    public Boolean addToWishList(String token, UserProductDTO userProduct) throws AuthenticationFailException {
         authenticationService.authenticate(token);
         UserDetails userDetails = authenticationService.getUserDetails(token);
-        Optional<Product> product = productRepository.findById(userProducts.getProductId());
-        WishList wishList = new WishList(product.get(), userDetails,1,new Date());
+        Optional<Product> product = productRepository.findById(userProduct.getProductId());
+        if(!product.isPresent()){
+            return false;
+        }
+        WishList wishList = new WishlistBuilder().withProduct(product.get())
+                .withUserDetails(userDetails)
+                .withQuantity(1)
+                .build();
         wishListRepository.save(wishList);
         return true;
     }
@@ -41,8 +48,13 @@ public class WishListService {
         authenticationService.authenticate(token);
         UserDetails userDetails = authenticationService.getUserDetails(token);
         Optional<Product> product = productRepository.findById(userProducts.getProductId());
-        WishList wishList = new WishList(product.get(), userDetails,1,new Date());
+        if(!product.isPresent()){
+            return false;
+        }
+        WishList wishList = wishListRepository.getUserWishlistByProduct(userDetails, product.get());
         wishListRepository.delete(wishList);
         return true;
     }
+
+
 }

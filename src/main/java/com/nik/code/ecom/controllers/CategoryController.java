@@ -26,13 +26,13 @@ public class CategoryController {
     @PutMapping
     public ResponseEntity<ApiResponse> updateCategory(@RequestBody CategoryDTO categoryDTO, @RequestParam(name = "categoryId") Integer categoryId) {
         categoryService.updateCategory(categoryDTO, categoryId);
-        return new ResponseEntity<>(new ApiResponse(true, "Category is added"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse(true, "Category is updated"), HttpStatus.CREATED);
     }
 
     @DeleteMapping
     public ResponseEntity<ApiResponse> deleteCategory(@RequestParam(name = "categoryId") Integer categoryId) {
         categoryService.deleteCategory(categoryId);
-        return new ResponseEntity<>(new ApiResponse(true, "Category is added"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse(true, "Category is deleted"), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -49,22 +49,3 @@ public class CategoryController {
         return category;
     }
 }
-
-
-//Cart Controller
-//addToCart
-//removeFromCart
-//updateCart[Quantity]
-//GetCartFromToken
-
-//OrderController
-//placeOrder-->removeFromCart
-//public response placeOrdeder(Product, Usertoen)
-//{
-//    //address
-//    orderservice.placeorder();
-//}
-
-
-//SearchController
-//search[Product]--> Pagination

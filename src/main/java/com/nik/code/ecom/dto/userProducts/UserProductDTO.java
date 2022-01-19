@@ -1,24 +1,24 @@
 package com.nik.code.ecom.dto.userProducts;
 
-import java.util.List;
+import java.util.Objects;
 
 public class UserProductDTO {
     private Integer productId;
-    private Integer Quantity;
+    private Integer quantity=1;
 
     public Integer getProductId() {
-        return productId;
+        return this.productId;
     }
 
-    public void setProductId(List<Integer> productIds) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
     public Integer getQuantity() {
-        return Quantity;
+        return this.quantity;
     }
 
     public void setQuantity(Integer quantity) {
-        Quantity = quantity;
+        this.quantity = Objects.nonNull(quantity) ? quantity : 1;
     }
 }

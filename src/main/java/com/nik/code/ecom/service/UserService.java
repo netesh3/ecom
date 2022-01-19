@@ -3,16 +3,15 @@ package com.nik.code.ecom.service;
 
 import com.nik.code.ecom.builder.*;
 import com.nik.code.ecom.constant.Message;
-import com.nik.code.ecom.dto.user.SignInDTO;
-import com.nik.code.ecom.dto.user.SignInResponseDTO;
-import com.nik.code.ecom.dto.user.SignUpResponseDTO;
-import com.nik.code.ecom.dto.user.SignupDTO;
+import com.nik.code.ecom.dto.user.*;
 import com.nik.code.ecom.enums.Status;
 import com.nik.code.ecom.exceptions.AuthenticationFailException;
 import com.nik.code.ecom.exceptions.UserException;
+import com.nik.code.ecom.model.Address;
 import com.nik.code.ecom.model.AuthenticationToken;
 import com.nik.code.ecom.model.User;
 import com.nik.code.ecom.model.UserDetails;
+import com.nik.code.ecom.repository.UserDetailsRepository;
 import com.nik.code.ecom.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +31,8 @@ public class UserService {
     @Autowired
     AuthenticationService authenticationService;
 
+    @Autowired
+    UserDetailsRepository userDetailsRepository;
 
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -56,9 +57,7 @@ public class UserService {
             // generate token for user
             final AuthenticationToken authenticationToken = new AuthenticationToken();
 
-            UserDetails userDetails = new UserDetailsBuilder(authenticationToken)
-                    .withAddress(new AddressBuilder().build())
-                    .build();
+            UserDetails userDetails = new UserDetailsBuilder(authenticationToken).build();
 
             User user = new SignupBuilder(signupDto, userDetails).build();
 
@@ -108,4 +107,21 @@ public class UserService {
 
         return new SignInResponseDTO(Status.SUCCESS.name(), user.getFirstName(), token.getToken());
     }
+
+    public Boolean saveAddress(String token, AddressDTO addressDTO) throws AuthenticationFailException {
+        authenticationService.authenticate(token);
+        UserDetails userDetails = authenticationService.getUserDetails(token);
+        Address address = new AddressBuilder(addressDTO).build();
+        userDetails.setAddress(address);
+        userDetailsRepository.save(userDetails);
+        return true;
+    }
+
+    public Boolean hasAddress(String token) throws AuthenticationFailException {
+        authenticationService.authenticate(token);
+        UserDetails userDetails = authenticationService.getUserDetails(token);
+        return Objects.nonNull(userDetails.getAddress());
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package com.nik.code.ecom.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "address")
@@ -9,21 +11,33 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "house")
+    @NotNull
+    @NotEmpty
+    @Column(name = "address_1")
     private String house;
 
+    @NotNull
+    @NotEmpty
     @Column(name = "street")
     private String street;
 
+    @NotNull
+    @NotEmpty
     @Column(name = "city")
     private String city;
 
+    @NotNull
+    @NotEmpty
     @Column(name = "state")
     private String state;
 
+    @NotNull
+    @NotEmpty
     @Column(name = "postal_code")
     private String postalCode;
 
+    @NotNull
+    @NotEmpty
     @Column(name = "country")
     private String country;
 

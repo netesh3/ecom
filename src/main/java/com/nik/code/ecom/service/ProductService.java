@@ -2,7 +2,6 @@ package com.nik.code.ecom.service;
 
 import com.nik.code.ecom.builder.ProductBuilder;
 import com.nik.code.ecom.dto.product.ProductDTO;
-import com.nik.code.ecom.mapper.CategoryMapper;
 import com.nik.code.ecom.mapper.ProductMapper;
 import com.nik.code.ecom.model.Category;
 import com.nik.code.ecom.model.Product;
@@ -39,13 +38,16 @@ public class ProductService {
     public void updateProduct(Integer productId, ProductDTO productDTO){
         final Optional<Category> category = categoryRepository.findById(productDTO.getCategoryId());
         if(category.isPresent()) {
-            Product product = productRepository.getById(productId);
-            product.setName(productDTO.getName());
-            product.setDescription(productDTO.getDescription());
-            product.setRegularPrice(productDTO.getRegularPrice());
-            product.setDiscountPrice(productDTO.getDiscountPrice());
-            product.setCategory(category.get());
-            productRepository.save(product);
+            Optional<Product> product = productRepository.findById(productId);
+            if(product.isPresent()){
+                Product productEntity = product.get();
+                productEntity.setName(productDTO.getName());
+                productEntity.setDescription(productDTO.getDescription());
+                productEntity.setRegularPrice(productDTO.getRegularPrice());
+                productEntity.setDiscountPrice(productDTO.getDiscountPrice());
+                productEntity.setCategory(category.get());
+                productRepository.save(productEntity);
+            }
         }
     }
 

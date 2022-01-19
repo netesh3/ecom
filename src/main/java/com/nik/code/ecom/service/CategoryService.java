@@ -24,11 +24,12 @@ public class CategoryService {
     CategoryRepository categoryRepository;
 
     public void createCategory(CategoryDTO categoryDTO) {
-        Optional<Category> parent = null;
+         Category parentEntity = null;
         if(Objects.nonNull(categoryDTO.getParentId())){
-            parent = categoryRepository.findById(categoryDTO.getParentId());
+            Optional<Category> parent = categoryRepository.findById(categoryDTO.getParentId());
+            parentEntity = parent.orElse(null);
         }
-        Category category = new CategoryBuilder(categoryDTO).withParentCategory(parent.get()).build();
+        Category category = new CategoryBuilder(categoryDTO).withParentCategory(parentEntity).build();
         categoryRepository.save(category);
     }
 
@@ -38,7 +39,7 @@ public class CategoryService {
             Category categoryEntity = category.get();
             if(Objects.nonNull(categoryDTO.getParentId())){
                 Optional<Category> parentCategory = categoryRepository.findById(categoryDTO.getParentId());
-                categoryEntity.setParent(parentCategory.get());
+                categoryEntity.setParent(parentCategory.orElse(null));
             }
             categoryEntity.setName(categoryDTO.getName());
             categoryEntity.setDescription(categoryDTO.getDescription());

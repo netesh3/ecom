@@ -32,6 +32,6 @@ public class WishListController {
         if(!isRemoved){
             return new ResponseEntity<>(new ApiResponse(false, "Cannot be Removed"), HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(new ApiResponse(true, "Products added to wishlist"), HttpStatus.CREATED);
+        return new ResponseEntity<>(new ApiResponse(true, "Products removed from wishlist"), HttpStatus.CREATED);
     }
 }
