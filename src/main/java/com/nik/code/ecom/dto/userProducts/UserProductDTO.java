@@ -5,7 +5,6 @@ import java.util.List;
 public class UserProductDTO {
     private Integer productId;
     private Integer Quantity;
-    private String token;
 
     public Integer getProductId() {
         return productId;
@@ -13,14 +12,6 @@ public class UserProductDTO {
 
     public void setProductId(List<Integer> productIds) {
         this.productId = productId;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public Integer getQuantity() {
