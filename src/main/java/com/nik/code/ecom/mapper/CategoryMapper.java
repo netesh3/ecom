@@ -3,11 +3,10 @@ package com.nik.code.ecom.mapper;
 import com.nik.code.ecom.dto.category.CategoryDTO;
 import com.nik.code.ecom.model.Category;
 import com.nik.code.ecom.utils.DTOMapper;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDTOMapper implements DTOMapper<CategoryDTO, Category> {
+public class CategoryMapper implements DTOMapper<CategoryDTO, Category> {
 
 
     @Override

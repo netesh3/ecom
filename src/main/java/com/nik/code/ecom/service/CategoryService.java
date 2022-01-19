@@ -2,7 +2,7 @@ package com.nik.code.ecom.service;
 
 import com.nik.code.ecom.builder.CategoryBuilder;
 import com.nik.code.ecom.dto.category.CategoryDTO;
-import com.nik.code.ecom.mapper.CategoryDTOMapper;
+import com.nik.code.ecom.mapper.CategoryMapper;
 import com.nik.code.ecom.model.Category;
 import com.nik.code.ecom.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,15 @@ public class CategoryService {
     public void updateCategory(CategoryDTO categoryDTO, Integer categoryId) {
         Optional<Category> category = categoryRepository.findById(categoryId);
         if(category.isPresent()){
-            Optional<Category> parentCategory = null;
+            Category categoryEntity = category.get();
             if(Objects.nonNull(categoryDTO.getParentId())){
-                parentCategory = categoryRepository.findById(categoryDTO.getParentId());
+                Optional<Category> parentCategory = categoryRepository.findById(categoryDTO.getParentId());
+                categoryEntity.setParent(parentCategory.get());
             }
-            if(category.isPresent()){
-                category.get().setName(categoryDTO.getName());
-                category.get().setDescription(categoryDTO.getDescription());
-                category.get().setImageURL(categoryDTO.getImageURL());
-            }
-            if(parentCategory.isPresent()){
-                category.get().setParent(parentCategory.get());
-            }
-            categoryRepository.save(category.get());
+            categoryEntity.setName(categoryDTO.getName());
+            categoryEntity.setDescription(categoryDTO.getDescription());
+            categoryEntity.setImageURL(categoryDTO.getImageURL());
+            categoryRepository.save(categoryEntity);
         }
     }
 
@@ -60,7 +56,7 @@ public class CategoryService {
         Page<Category> categoryPagedResult = categoryRepository.findAll(paging);
         if (categoryPagedResult.hasContent()) {
             List<Category> categories = categoryPagedResult.getContent();
-            List<CategoryDTO> categoryDTOS = new CategoryDTOMapper().toDTO(categories);
+            List<CategoryDTO> categoryDTOS = new CategoryMapper().toDTO(categories);
             return categoryDTOS;
         } else {
             return new ArrayList<CategoryDTO>();
@@ -70,7 +66,7 @@ public class CategoryService {
     public CategoryDTO getCategoryById(Integer categoryId) {
         Optional<Category> category = categoryRepository.findById(categoryId);
         if(category.isPresent()){
-            CategoryDTO categoryDTO = new CategoryDTOMapper().toDTO(category.get());
+            CategoryDTO categoryDTO = new CategoryMapper().toDTO(category.get());
             return categoryDTO;
         }
         return null;
