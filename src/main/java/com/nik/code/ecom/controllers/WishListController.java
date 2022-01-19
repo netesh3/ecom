@@ -25,5 +25,5 @@ public class WishListController {
         return new ResponseEntity<>(new ApiResponse(true, "Products added to wishlist"), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<ApiResponse> removeFromWishList(@RequestBody UserProductDTO userProduct) throws AuthenticationFailException {}
+//    public ResponseEntity<ApiResponse> removeFromWishList(@RequestBody UserProductDTO userProduct) throws AuthenticationFailException {}
 }

@@ -1,17 +1,22 @@
 package com.nik.code.ecom.service;
 
 import com.nik.code.ecom.builder.ProductBuilder;
-import com.nik.code.ecom.common.ApiResponse;
 import com.nik.code.ecom.dto.product.ProductDTO;
+import com.nik.code.ecom.mapper.CategoryMapper;
+import com.nik.code.ecom.mapper.ProductMapper;
 import com.nik.code.ecom.model.Category;
 import com.nik.code.ecom.model.Product;
 import com.nik.code.ecom.repository.CategoryRepository;
 import com.nik.code.ecom.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,20 +28,65 @@ public class ProductService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public boolean createProduct(ProductDTO productDTO) {
-
+    public void saveProduct(ProductDTO productDTO) {
         final Optional<Category> category = categoryRepository.findById(productDTO.getCategoryId());
-        if(!category.isPresent()){
-            return false;
+        if(category.isPresent()){
+            Product product = new ProductBuilder(productDTO).withCategory(category.get()).build();
+            productRepository.save(product);
         }
-        Product product = new ProductBuilder(productDTO).withCategory(category.get()).build();
-        productRepository.save(product);
-
-        return true;
     }
 
-    public Product getProduct(Integer productId) {
+    public void updateProduct(Integer productId, ProductDTO productDTO){
+        final Optional<Category> category = categoryRepository.findById(productDTO.getCategoryId());
+        if(category.isPresent()) {
+            Product product = productRepository.getById(productId);
+            product.setName(productDTO.getName());
+            product.setDescription(productDTO.getDescription());
+            product.setRegularPrice(productDTO.getRegularPrice());
+            product.setDiscountPrice(productDTO.getDiscountPrice());
+            product.setCategory(category.get());
+            productRepository.save(product);
+        }
+    }
+
+    public void removeProduct(Integer productId){
+        productRepository.deleteById(productId);
+    }
+
+    public List<ProductDTO> fetchAllProducts(Integer pageNo, Integer pageSize, String sortBy){
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        Page<Product> productPagedResult = productRepository.findAll(paging);
+        if (productPagedResult.hasContent()) {
+            List<Product> products = productPagedResult.getContent();
+            List<ProductDTO> productDTOS = new ProductMapper().toDTO(products);
+            return productDTOS;
+        } else {
+            return new ArrayList<ProductDTO>();
+        }
+    }
+
+    public ProductDTO fetchProductById(Integer productId){
         final Optional<Product> product = productRepository.findById(productId);
-        return product.orElse(null);
+        ProductDTO productDTO = null;
+        if(product.isPresent()){
+            productDTO = new ProductMapper().toDTO(product.get());
+        }
+        return productDTO;
+    }
+
+    public List<ProductDTO> fetchProductsByCategoryId(Integer categoryId, Integer pageNo, Integer pageSize, String sortBy){
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        final Optional<Category> category = categoryRepository.findById(categoryId);
+        if(!category.isPresent()){
+            return new ArrayList<ProductDTO>();
+        }
+        Page<Product> productPagedResult = productRepository.findProductsByCategory(category.get(), paging);
+        if (productPagedResult.hasContent()) {
+            List<Product> products = productPagedResult.getContent();
+            List<ProductDTO> productDTOS = new ProductMapper().toDTO(products);
+            return productDTOS;
+        } else {
+            return new ArrayList<ProductDTO>();
+        }
     }
 }
