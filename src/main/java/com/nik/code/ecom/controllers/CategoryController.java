@@ -3,7 +3,6 @@ package com.nik.code.ecom.controllers;
 import com.nik.code.ecom.common.ApiResponse;
 import com.nik.code.ecom.dto.category.CategoryDTO;
 import com.nik.code.ecom.service.CategoryService;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -7,6 +7,14 @@ public class ProductDTO {
     private Double discountPrice;
     private Integer categoryId;
 
+    public ProductDTO(String name, String description, Double regularPrice, Double discountPrice, Integer categoryId) {
+        this.name = name;
+        this.description = description;
+        this.regularPrice = regularPrice;
+        this.discountPrice = discountPrice;
+        this.categoryId = categoryId;
+    }
+
     public String getName() {
         return name;
     }
@@ -27,7 +35,7 @@ public class ProductDTO {
         return regularPrice;
     }
 
-    public void setRegularPrice(Double regular_price) {
+    public void setRegularPrice(Double regularPrice) {
         this.regularPrice = regularPrice;
     }
 
@@ -35,7 +43,7 @@ public class ProductDTO {
         return discountPrice;
     }
 
-    public void setDiscountPrice(Double discount_price) {
+    public void setDiscountPrice(Double discountPrice) {
         this.discountPrice = discountPrice;
     }
 
