@@ -6,13 +6,17 @@ public class ProductDTO {
     private Double regularPrice;
     private Double discountPrice;
     private Integer categoryId;
+    private String brand;
+    private Integer quantity;
 
-    public ProductDTO(String name, String description, Double regularPrice, Double discountPrice, Integer categoryId) {
+    public ProductDTO(String name, String description, Double regularPrice, Double discountPrice, Integer categoryId, String brand, Integer quantity) {
         this.name = name;
         this.description = description;
         this.regularPrice = regularPrice;
         this.discountPrice = discountPrice;
         this.categoryId = categoryId;
+        this.brand = brand;
+        this.quantity = quantity;
     }
 
     public String getName() {
@@ -53,5 +57,21 @@ public class ProductDTO {
 
     public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

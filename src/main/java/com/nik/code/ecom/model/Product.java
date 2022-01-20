@@ -39,15 +39,23 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    private String brand;
+
+    @NotNull
+    @NotBlank
+    private Integer quantity;
+
     public Product() {
     }
 
-    public Product(String name, String description, Double regularPrice, Double discountPrice, Category category) {
+    public Product(String name, String description, Double regularPrice, Double discountPrice, Category category, String brand, Integer quantity) {
         this.name = name;
         this.description = description;
         this.regularPrice = regularPrice;
         this.discountPrice = discountPrice;
         this.category = category;
+        this.brand = brand;
+        this.quantity = quantity;
     }
 
     public Integer getId() {
@@ -116,5 +124,21 @@ public class Product {
 
     public void setUserWishlistProducts(List<Cart> userWishlistProducts) {
         this.userWishlistProducts = userWishlistProducts;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

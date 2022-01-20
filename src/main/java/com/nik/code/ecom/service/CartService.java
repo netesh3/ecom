@@ -96,7 +96,10 @@ public class CartService {
         List<Cart> carts = userDetails.getUserCartProducts();
         List<Product> products = new ArrayList<>();
         for (Cart cart: carts) {
-            products.add(cart.getProduct());
+            Integer quantity = cart.getQuantity();
+            Product product = cart.getProduct();
+            product.setQuantity(quantity);
+            products.add(product);
         }
         List<ProductDTO> productDTOS = new ProductMapper().toDTO(products);
         return productDTOS;

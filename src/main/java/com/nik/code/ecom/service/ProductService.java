@@ -46,6 +46,8 @@ public class ProductService {
                 productEntity.setRegularPrice(productDTO.getRegularPrice());
                 productEntity.setDiscountPrice(productDTO.getDiscountPrice());
                 productEntity.setCategory(category.get());
+                productEntity.setBrand(productDTO.getBrand());
+                productEntity.setQuantity(productDTO.getQuantity());
                 productRepository.save(productEntity);
             }
         }

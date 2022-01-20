@@ -10,12 +10,16 @@ public class ProductBuilder {
     private Double regularPrice;
     private Double discountPrice;
     private Category category;
+    private String brand;
+    private Integer quantity;
 
     public ProductBuilder(ProductDTO product){
         this.name = product.getName();
         this.description = product.getDescription();
         this.regularPrice = product.getRegularPrice();
         this.discountPrice = product.getDiscountPrice();
+        this.brand = product.getBrand();
+        this.quantity = product.getQuantity();
     }
 
     public ProductBuilder withCategory(Category category){
@@ -24,6 +28,6 @@ public class ProductBuilder {
     }
 
     public Product build(){
-        return new Product(this.name, this.description, this.regularPrice, this.discountPrice, this.category);
+        return new Product(this.name, this.description, this.regularPrice, this.discountPrice, this.category, this.brand, this.quantity);
     }
 }

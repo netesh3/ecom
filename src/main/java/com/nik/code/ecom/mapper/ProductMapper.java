@@ -19,7 +19,7 @@ public class ProductMapper implements DTOMapper<ProductDTO, Product> {
     @Override
     public ProductDTO toDTO(Product instance) {
         Integer categoryId = instance.getCategory() != null? instance.getCategory().getId() : null;
-        return new ProductDTO(instance.getName(), instance.getDescription(), instance.getRegularPrice(), instance.getDiscountPrice(), categoryId);
+        return new ProductDTO(instance.getName(), instance.getDescription(), instance.getRegularPrice(), instance.getDiscountPrice(), categoryId, instance.getBrand(), instance.getQuantity());
     }
 
     @Override
