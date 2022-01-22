@@ -4,11 +4,21 @@ import com.nik.code.ecom.common.ApiResponse;
 import com.nik.code.ecom.dto.user.*;
 import com.nik.code.ecom.exceptions.AuthenticationFailException;
 import com.nik.code.ecom.exceptions.UserException;
+import com.nik.code.ecom.service.CustomUserDetailService;
 import com.nik.code.ecom.service.UserService;
+import com.nik.code.ecom.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("user")
 @RestController
@@ -17,13 +27,22 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private CustomUserDetailService userDetailsService;
+
+    @Autowired
+    private JwtUtil jwtTokenUtil;
+
     @PostMapping("/signup")
     public SignUpResponseDTO signUp(@RequestBody SignupDTO signupDto) throws UserException {
         return userService.signUp(signupDto);
     }
 
     @PostMapping("/signIn")
-    public SignInResponseDTO signIn(@RequestBody SignInDTO signInDto) throws UserException, AuthenticationFailException {
+    public SignInResponseDTO signIn(@RequestBody SignInDTO signInDto) throws Exception {
         return userService.signIn(signInDto);
     }
 
@@ -45,4 +64,20 @@ public class UserController {
         return new ResponseEntity<>(new ApiResponse(true, "Address Exists"), HttpStatus.CREATED);
     }
 
+    //TODO only for backend
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authenticationRequest.getMobile(), authenticationRequest.getPassword())
+            );
+        }
+        catch (BadCredentialsException e) {
+            throw new Exception("Incorrect username or password", e);
+        }
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(authenticationRequest.getMobile());
+        final String jwt = jwtTokenUtil.generateToken(userDetails);
+        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    }
 }

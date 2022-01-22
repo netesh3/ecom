@@ -2,8 +2,6 @@ package com.nik.code.ecom.repository;
 
 
 import com.nik.code.ecom.model.Product;
-import com.sun.xml.bind.v2.TODO;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

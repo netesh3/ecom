@@ -2,6 +2,7 @@ package com.nik.code.ecom.service;
 
 
 import com.nik.code.ecom.builder.*;
+import com.nik.code.ecom.config.AES256EncryptionAlgo;
 import com.nik.code.ecom.constant.Message;
 import com.nik.code.ecom.dto.user.*;
 import com.nik.code.ecom.enums.Status;
@@ -13,9 +14,13 @@ import com.nik.code.ecom.model.User;
 import com.nik.code.ecom.model.UserDetails;
 import com.nik.code.ecom.repository.UserDetailsRepository;
 import com.nik.code.ecom.repository.UserRepository;
+import com.nik.code.ecom.utils.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
@@ -34,6 +39,15 @@ public class UserService {
     @Autowired
     UserDetailsRepository userDetailsRepository;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private CustomUserDetailService userDetailsService;
+
+    @Autowired
+    private JwtUtil jwtTokenUtil;
+
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public SignUpResponseDTO signUp(SignupDTO signupDto)  throws UserException {
@@ -44,13 +58,8 @@ public class UserService {
         }
         // first encrypt the password
 
-        try {
-            String encryptedPassword = hashPassword(signupDto.getPassword());
-            signupDto.setPassword(encryptedPassword);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            logger.error("hashing password failed {}", e.getMessage());
-        }
+        String encryptedPassword = AES256EncryptionAlgo.encrypt(signupDto.getPassword());
+        signupDto.setPassword(encryptedPassword);
 
         try {
 
@@ -64,48 +73,35 @@ public class UserService {
             // save the User
             userRepository.save(user);
 
-            return new SignUpResponseDTO(Status.SUCCESS.name(), "user created successfully", signupDto.getFirstName(), authenticationToken.getToken());
+            final org.springframework.security.core.userdetails.UserDetails userDetail = userDetailsService
+                    .loadUserByUsername(user.getMobile());
+
+            final String jwt = jwtTokenUtil.generateToken(userDetail);
+
+            return new SignUpResponseDTO(Status.SUCCESS.name(), "user created successfully", signupDto.getFirstName(), jwt);
         } catch (Exception e) {
             // handle signup error
             throw new UserException(e.getMessage());
         }
     }
 
-    String hashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        md.update(password.getBytes());
-        byte[] digest = md.digest();
-        String myHash = DatatypeConverter
-                .printHexBinary(digest).toUpperCase();
-        return myHash;
-    }
+    public SignInResponseDTO signIn(SignInDTO signInDto) throws Exception {
 
-    public SignInResponseDTO signIn(SignInDTO signInDto) throws AuthenticationFailException, UserException {
-        // first find User by email
-        User user = userRepository.findByMobile(signInDto.getMobile());
-        if(!Objects.nonNull(user)){
-            throw new AuthenticationFailException("user not present");
-        }
         try {
-            // check if password is right
-            if (!user.getPassword().equals(hashPassword(signInDto.getPassword()))){
-                // passwords do not match
-                throw  new AuthenticationFailException(Message.WRONG_PASSWORD);
-            }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            logger.error("hashing password failed {}", e.getMessage());
-            throw new UserException(e.getMessage());
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(signInDto.getMobile(), signInDto.getPassword())
+            );
+        }
+        catch (BadCredentialsException e) {
+            throw new Exception("Incorrect username or password", e);
         }
 
-        AuthenticationToken token = authenticationService.getToken(user);
+        final org.springframework.security.core.userdetails.UserDetails userDetails = userDetailsService
+                .loadUserByUsername(signInDto.getMobile());
 
-        if(!Objects.nonNull(token)) {
-            // token not present
-            throw new UserException(Message.AUTH_TOKEN_NOT_PRESENT);
-        }
+        final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return new SignInResponseDTO(Status.SUCCESS.name(), user.getFirstName(), token.getToken());
+        return new SignInResponseDTO(Status.SUCCESS.name(), signInDto.getMobile(), jwt);
     }
 
     public Boolean saveAddress(String token, AddressDTO addressDTO) throws AuthenticationFailException {
