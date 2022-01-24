@@ -5,6 +5,7 @@ import com.nik.code.ecom.dto.user.*;
 import com.nik.code.ecom.exceptions.AuthenticationFailException;
 import com.nik.code.ecom.exceptions.UserException;
 import com.nik.code.ecom.service.CustomUserDetailService;
+import com.nik.code.ecom.service.OTPService;
 import com.nik.code.ecom.service.UserService;
 import com.nik.code.ecom.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,21 @@ public class UserController {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
+    @Autowired
+    OTPService otpService;
+
     @PostMapping("/signup")
-    public SignUpResponseDTO signUp(@RequestBody SignupDTO signupDto) throws UserException {
-        return userService.signUp(signupDto);
+    public ResponseEntity<ApiResponse> signUp(@RequestBody SignupDTO signupDto) throws UserException {
+        userService.signUp(signupDto);
+        Boolean sent = otpService.sendOTPViaEmail(signupDto.getEmail());
+        if(sent){
+            return new ResponseEntity<>(new ApiResponse(true, "Verify OTP sent on your email"), HttpStatus.GONE);
+        }
+        return new ResponseEntity<>(new ApiResponse(false, "OTP could not sent"), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping("/signIn")
-    public SignInResponseDTO signIn(@RequestBody SignInDTO signInDto) throws Exception {
+    public SignUpResponseDTO signInByPassword(@RequestBody SignInDTO signInDto) throws Exception {
         return userService.signIn(signInDto);
     }
 

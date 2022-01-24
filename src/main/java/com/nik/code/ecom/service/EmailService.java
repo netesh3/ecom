@@ -1,0 +1,7 @@
+package com.nik.code.ecom.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmailService {
+}

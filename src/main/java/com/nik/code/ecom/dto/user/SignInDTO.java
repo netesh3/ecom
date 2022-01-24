@@ -1,15 +1,15 @@
 package com.nik.code.ecom.dto.user;
 
 public class SignInDTO {
-    private String mobile;
+    private String email;
     private String password;
 
-    public String getMobile() {
-        return mobile;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

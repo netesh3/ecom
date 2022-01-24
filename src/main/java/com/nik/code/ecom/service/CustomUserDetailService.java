@@ -18,9 +18,9 @@ public class CustomUserDetailService implements UserDetailsService {
     UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String mobile) throws UsernameNotFoundException {
-        com.nik.code.ecom.model.User user = userRepository.findByMobile(mobile);
-        String userName = user.getMobile();
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        com.nik.code.ecom.model.User user = userRepository.findByEmail(email);
+        String userName = user.getEmail();
         String password = AES256EncryptionAlgo.decrypt(user.getPassword());
         return new User(userName, password, new ArrayList<>());
     }

@@ -3,7 +3,6 @@ package com.nik.code.ecom.service;
 
 import com.nik.code.ecom.builder.*;
 import com.nik.code.ecom.config.AES256EncryptionAlgo;
-import com.nik.code.ecom.constant.Message;
 import com.nik.code.ecom.dto.user.*;
 import com.nik.code.ecom.enums.Status;
 import com.nik.code.ecom.exceptions.AuthenticationFailException;
@@ -22,9 +21,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-import javax.xml.bind.DatatypeConverter;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 import java.util.Objects;
 
 @Service
@@ -50,11 +47,11 @@ public class UserService {
 
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public SignUpResponseDTO signUp(SignupDTO signupDto)  throws UserException {
+    public void signUp(SignupDTO signupDto)  throws UserException {
         // Check to see if the current phone address has already been registered.
-        if (Objects.nonNull(userRepository.findByMobile(signupDto.getMobile()))) {
+        if (Objects.nonNull(userRepository.findByEmail(signupDto.getEmail()))) {
             // If the phone address has been registered then throw an exception.
-            throw new UserException("User already exists");
+            throw new UserException("User already exists with this Email Id: " + signupDto.getEmail());
         }
         // first encrypt the password
 
@@ -66,6 +63,7 @@ public class UserService {
             // generate token for user
             final AuthenticationToken authenticationToken = new AuthenticationToken();
 
+            //ToDo: Implement concept of Access and Refresh Token and don't store token in DB
             UserDetails userDetails = new UserDetailsBuilder(authenticationToken).build();
 
             User user = new SignupBuilder(signupDto, userDetails).build();
@@ -73,23 +71,21 @@ public class UserService {
             // save the User
             userRepository.save(user);
 
-            final org.springframework.security.core.userdetails.UserDetails userDetail = userDetailsService
-                    .loadUserByUsername(user.getMobile());
-
-            final String jwt = jwtTokenUtil.generateToken(userDetail);
-
-            return new SignUpResponseDTO(Status.SUCCESS.name(), "user created successfully", signupDto.getFirstName(), jwt);
         } catch (Exception e) {
             // handle signup error
             throw new UserException(e.getMessage());
         }
     }
 
-    public SignInResponseDTO signIn(SignInDTO signInDto) throws Exception {
+    public SignUpResponseDTO signIn(SignInDTO signInDto) throws Exception {
 
+        User user = userRepository.findByEmail(signInDto.getEmail());
+        if(!user.isActivated()){
+            return new SignUpResponseDTO(Status.FAILURE.name(), "This account is not yet activated", user.getEmail(), null);
+        }
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(signInDto.getMobile(), signInDto.getPassword())
+                    new UsernamePasswordAuthenticationToken(signInDto.getEmail(), signInDto.getPassword())
             );
         }
         catch (BadCredentialsException e) {
@@ -97,11 +93,11 @@ public class UserService {
         }
 
         final org.springframework.security.core.userdetails.UserDetails userDetails = userDetailsService
-                .loadUserByUsername(signInDto.getMobile());
+                .loadUserByUsername(signInDto.getEmail());
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return new SignInResponseDTO(Status.SUCCESS.name(), signInDto.getMobile(), jwt);
+        return new SignUpResponseDTO(Status.FAILURE.name(), "This account is not yet activated", user.getEmail(), null);
     }
 
     public Boolean saveAddress(String token, AddressDTO addressDTO) throws AuthenticationFailException {

@@ -36,4 +36,7 @@ public class OrderController {
         cartService.removeProductsFromCart(token, orderedProductDTOs);
         return new ResponseEntity<>(new ApiResponse(true, "Order placed successfully"), HttpStatus.CREATED);
     }
+
+    //ToDo get all orders
+    //ToDo get Order for user
 }

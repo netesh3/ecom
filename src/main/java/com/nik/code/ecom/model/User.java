@@ -38,6 +38,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "account_activated")
+    private boolean activated;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_details")
     private UserDetails userDetails;
@@ -52,6 +55,7 @@ public class User {
         this.mobile = mobile;
         this.password = password;
         this.userDetails = userDetails;
+        this.activated = false;
     }
 
     public Integer getId() {
@@ -106,4 +110,11 @@ public class User {
         this.userDetails = userDetails;
     }
 
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
 }

@@ -50,7 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui.html",
                         "/webjars/**",
                         "/user/signup",
-                        "/user/signIn").permitAll().
+                        "/user/signIn",
+                        "/otp/*").permitAll().
                 anyRequest().authenticated().and().
                 exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
